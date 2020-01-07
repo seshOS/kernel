@@ -2,7 +2,7 @@
 kernel
 
 ## requirements
-i686-elf-gcc
+i686-elf-gcc  
 nasm
 
 ## building and running
