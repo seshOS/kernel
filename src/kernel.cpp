@@ -6,6 +6,10 @@ void output_to_serial(char character, void *) {
 }
 
 extern "C" void kernel_main() {
-	fctprintf(output_to_serial, (void *)0, "Hello, World!\n");
+	sesh::Serial serial(0);
+	serial.Init();
+	serial.WriteString("[INFO] Serial initialised.\n");
+	
+	fctprintf(output_to_serial, (void *)0, "[INFO] Hello, World! kernel_main is at: %p\n", kernel_main);
 	while (1);
 }

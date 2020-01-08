@@ -25,6 +25,12 @@ namespace sesh {
 		}
 		data.Write8(c);
 	}
+	
+	void Serial::WriteString(const char *s) const {
+		while (*s) {
+			Write(*s++);
+		}
+	}
 
 	uint8_t Serial::Read() const {
 		while (!Received());

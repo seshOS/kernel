@@ -15,6 +15,7 @@ namespace sesh {
 		void Init() const;
 
 		void Write(uint8_t c) const;
+		void WriteString(const char *s) const;
 		uint8_t Read() const;
 		
 		bool Received() const;
