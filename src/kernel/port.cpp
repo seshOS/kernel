@@ -21,19 +21,19 @@ namespace sesh {
 		return result;
 	}
 
-	void Write8(uint8_t data) const {
+	void Port::Write8(uint8_t data) const {
 		asm volatile("outb %0, %1" :: "a"(data), "Nd"(num));
 	}
 
-	void Write8Slow(uint8_t data) const {
+	void Port::Write8Slow(uint8_t data) const {
 		asm volatile("outb %0, %1\njmp 1f\n1: jmp 1f\n1:" :: "a"(data), "Nd"(num));
 	}
 	
-	void Write16(uint16_t data) const {
+	void Port::Write16(uint16_t data) const {
 		asm volatile("outw %0, %1" :: "a"(data), "Nd"(num));
 	}
 
-	void Write32(uint32_t data) const {
+	void Port::Write32(uint32_t data) const {
 		asm volatile("outl %0, %1" :: "a"(data), "Nd"(num));
 	}
 }
