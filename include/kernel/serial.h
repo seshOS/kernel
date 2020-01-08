@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <kernel/port.h>
 
+#define serial_printf(serial_no, fmt, ...) fctprintf(sesh::__serial_printf_stream, (void *)serial_no, fmt, ##__VA_ARGS__)
+
 namespace sesh {
 	class Serial {
 		Port data, status;
@@ -21,6 +23,8 @@ namespace sesh {
 		bool Received() const;
 		bool TransmitEmpty() const;
 	};
+
+	void __serial_printf_stream(char character, void *serial_no);
 }
 
 #endif//__KERNEL_SERIAL_H_

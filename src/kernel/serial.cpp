@@ -45,4 +45,8 @@ namespace sesh {
 	bool Serial::TransmitEmpty() const {
 		return status.Read8() & 0x20;
 	}
+	
+	void __serial_printf_stream(char character, void *serial_no) {
+		Serial((int)serial_no).Write(character);
+	}
 }
