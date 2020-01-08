@@ -1,5 +1,5 @@
-#ifndef __KERNEL_PORT_H
-#define __KERNEL_PORT_H
+#ifndef __KERNEL_PORT_H_
+#define __KERNEL_PORT_H_
 
 #include <stdint.h>
 
@@ -8,7 +8,7 @@ namespace sesh {
 		uint16_t num;
 
 	public:
-		Port(uint16_t number);
+		Port(uint16_t number = 0);
 	
 		uint8_t Read8() const;
 		uint16_t Read16() const;
@@ -18,7 +18,9 @@ namespace sesh {
 		void Write8Slow(uint8_t data) const;
 		void Write16(uint16_t data) const;
 		void Write32(uint32_t data) const;
+
+		Port operator+(const uint16_t &rhs) const;
 	};
 }
 
-#endif//__KERNEL_PORT_H
+#endif//__KERNEL_PORT_H_

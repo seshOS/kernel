@@ -36,4 +36,8 @@ namespace sesh {
 	void Port::Write32(uint32_t data) const {
 		asm volatile("outl %0, %1" :: "a"(data), "Nd"(num));
 	}
+
+	Port Port::operator+(const uint16_t &rhs) const {
+		return Port(num + rhs);
+	}
 }
