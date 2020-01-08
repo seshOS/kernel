@@ -1,4 +1,6 @@
+#include <stdio.h>
+
 extern "C" void kernel_main() {
-	*(unsigned short *)0xC00B8000 = 0x0765;
+	printf("Hello, World!\n");
 	while (1);
 }
