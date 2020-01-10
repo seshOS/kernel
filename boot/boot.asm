@@ -30,8 +30,7 @@ section .text
 extern kernel_main
 global _start
 _start:
-	mov edi, init_page_table_1
-	sub edi, 0xC0000000
+	lea edi, [init_page_table_1 - 0xC0000000]
 	mov esi, 0
 	mov ecx, 1023
 .fill_page_table:
@@ -43,19 +42,14 @@ _start:
 	loop .fill_page_table
 .enable_paging:
 	; set up page directory
-	mov edi, init_page_directory
-	sub edi, 0xC0000000
-	mov edx, init_page_table_1
-	sub edx, 0xC0000000
+	lea edi, [init_page_directory - 0xC0000000]
+	lea edx, [init_page_table_1 - 0xC0000000]
 	add edx, 3
 	mov [edi], edx
-	add edi, 3072
-	mov [edi], edx
+	mov [edi + 3072], edx
 
 	; actually enable paging
-	mov eax, init_page_directory
-	sub eax, 0xC0000000
-	mov cr3, eax
+	mov cr3, edi
 	mov eax, cr0
 	or eax, 0x80010000
 	mov cr0, eax
