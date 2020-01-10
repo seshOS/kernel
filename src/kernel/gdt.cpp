@@ -6,7 +6,7 @@ namespace sesh {
 	void SegmentDescriptor::SetLimit(uint32_t lim) {
 		if (lim >= 0x100000) {
 			if ((lim & 0xFFF) != 0x000) {
-				serial_printf(0, "[WARNING] loss of precision on limit 0x%X\n", lim);
+			//	serial_printf(0, "[WARNING] loss of precision on limit 0x%X\n", lim);
 			}
 
 			lim >>= 12;
