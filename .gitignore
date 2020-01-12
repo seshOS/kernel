@@ -2,6 +2,7 @@
 *.bin
 iso/
 *.o
+.bochsrc
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
