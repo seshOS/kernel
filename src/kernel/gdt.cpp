@@ -6,7 +6,7 @@ namespace sesh {
 	void SegmentDescriptor::SetLimit(uint32_t lim) {
 		if (lim >= 0x100000) {
 			if ((lim & 0xFFF) != 0x000) {
-			//	serial_printf(0, "[WARNING] loss of precision on limit 0x%X\n", lim);
+			//	printf("[WARNING] loss of precision on limit 0x%X\n", lim);
 			}
 
 			lim >>= 12;
@@ -30,7 +30,7 @@ namespace sesh {
 	void GlobalDescriptorTable::Init() {
 		// null
 		entries[0].SetBase(0x00000000);
-		entries[0].SetLimit(0xFFFFFFFF);
+		entries[0].SetLimit(0x00000000);
 		entries[0].access = 0x00;
 
 		// kernel code
