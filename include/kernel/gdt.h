@@ -17,6 +17,11 @@ namespace sesh {
 		void SetBase(uint32_t base);
 	} __attribute__((packed));
 
+	struct DescriptorTablePointer {
+		uint16_t size;
+		uint32_t address;
+	} __attribute((packed));
+
 	class GlobalDescriptorTable {
 		SegmentDescriptor entries[5];
 

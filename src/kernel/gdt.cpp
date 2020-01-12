@@ -54,7 +54,7 @@ namespace sesh {
 		entries[4].access = 0xF2;
 
 		// load the thing
-		struct { uint32_t address; uint16_t size; } __attribute__((packed)) pointer;
+		DescriptorTablePointer pointer;
 		pointer.address = (uint32_t)entries;
 		pointer.size = sizeof(entries) - 1;
 		asm volatile("lgdt %0" :: "m"(pointer));
