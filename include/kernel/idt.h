@@ -2,10 +2,11 @@
 #define __KERNEL_IDT_H_
 
 #include <stdint.h>
+#include <kernel/port.h>
 
 namespace sesh {
     struct InterruptFrame {
-		uint32_t gs, fd, es, ds;
+		uint32_t gs, fs, es, ds;
 		uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
 		uint32_t interrupt_number, error_code;
 		uint32_t eip, cs, eflags, user_esp, ss;
@@ -30,9 +31,12 @@ namespace sesh {
 		InterruptDescriptor entries[256];
 
 	public:
+		Port pic1_cmd, pic1_data, pic2_cmd, pic2_data;		
+
+	public:
 		InterruptDescriptorTable();
 
-		void SetEntry(int n, void (*function)(InterruptFrame *, uint32_t), uint8_t type_attr);
+		void SetEntry(int n, void *function, uint8_t type_attr);
 
 		void Load();
 	};
