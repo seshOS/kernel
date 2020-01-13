@@ -3,6 +3,7 @@
 #include <kernel/gdt.h>
 #include <kernel/idt.h>
 #include <kernel/isr.h>
+#include <kernel/irq.h>
 
 extern "C" void kernel_main() {
 	sesh::Serial serial(0);
@@ -16,6 +17,7 @@ extern "C" void kernel_main() {
 	
 	sesh::InterruptDescriptorTable idt;
 	sesh::isr::InstallHandlers(&idt);
+	sesh::irq::InstallHandlers(&idt);
 	idt.Load();
 	printf("[INFO] ISR handlers installed\n");
 	while (1);
