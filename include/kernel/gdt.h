@@ -28,6 +28,10 @@ namespace sesh {
 	public:
 		GlobalDescriptorTable();
 
+		void SetEntry(int n, uint32_t base, uint32_t limit, uint8_t access);
+		
+		void Load();
+
 		void Init();
 	};
 }

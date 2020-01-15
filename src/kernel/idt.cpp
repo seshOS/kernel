@@ -1,5 +1,7 @@
 #include <kernel/idt.h>
 #include <kernel/gdt.h> // sesh::DescriptorTablePointer
+#include <kernel/isr.h>
+#include <kernel/irq.h>
 
 namespace sesh {
 	InterruptDescriptorTable::InterruptDescriptorTable() : pic1_cmd(0x20), pic2_cmd(0xA0) {
@@ -37,5 +39,11 @@ namespace sesh {
 		pic2_data.Write8(mask2);
 
 		asm volatile("lidt %0; sti" :: "m"(pointer));
+	}
+
+	void InterruptDescriptorTable::Init() {
+		isr::InstallHandlers(this);
+		irq::InstallHandlers(this);
+		Load();		
 	}
 }

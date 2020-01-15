@@ -39,6 +39,8 @@ namespace sesh {
 		void SetEntry(int n, void *function, uint8_t type_attr);
 
 		void Load();
+
+		void Init();
 	};
 }
 

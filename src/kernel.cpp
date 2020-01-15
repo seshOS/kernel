@@ -16,9 +16,7 @@ extern "C" void kernel_main() {
 	printf("[INFO] GDT initialised.\n");
 	
 	sesh::InterruptDescriptorTable idt;
-	sesh::isr::InstallHandlers(&idt);
-	sesh::irq::InstallHandlers(&idt);
-	idt.Load();
-	printf("[INFO] ISR handlers installed\n");
+	idt.Init();
+	printf("[INFO] Interrupt handlers installed\n");
 	while (1);
 }

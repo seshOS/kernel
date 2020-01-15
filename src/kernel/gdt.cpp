@@ -5,7 +5,7 @@
 namespace sesh {
 	void SegmentDescriptor::SetLimit(uint32_t lim) {
 		if (lim >= 0x100000) {
-			if ((lim & 0xFFF) != 0x000) {
+			if ((lim & 0xFFF) != 0xFFF) {
 			//	printf("[WARNING] loss of precision on limit 0x%X\n", lim);
 			}
 
@@ -27,36 +27,26 @@ namespace sesh {
 
 	GlobalDescriptorTable::GlobalDescriptorTable() {}
 
-	void GlobalDescriptorTable::Init() {
-		// null
-		entries[0].SetBase(0x00000000);
-		entries[0].SetLimit(0x00000000);
-		entries[0].access = 0x00;
+	void GlobalDescriptorTable::SetEntry(int n, uint32_t base, uint32_t limit, uint8_t access) {
+		entries[n].SetBase(base);
+		entries[n].SetLimit(limit);
+		entries[n].access = access;
+	}
 
-		// kernel code
-		entries[1].SetBase(0x00000000);
-		entries[1].SetLimit(0xFFFFFFFF);
-		entries[1].access = 0x9A;
-		
-		// kernel data
-		entries[2].SetBase(0x00000000);
-		entries[2].SetLimit(0xFFFFFFFF);
-		entries[2].access = 0x92;
-		
-		// user code
-		entries[3].SetBase(0x00000000);
-		entries[3].SetLimit(0xFFFFFFFF);
-		entries[3].access = 0xFA;
-
-		// user data
-		entries[4].SetBase(0x00000000);
-		entries[4].SetLimit(0xFFFFFFFF);
-		entries[4].access = 0xF2;
-
-		// load the thing
+	void GlobalDescriptorTable::Load() {
 		DescriptorTablePointer pointer;
 		pointer.address = (uint32_t)entries;
 		pointer.size = sizeof(entries) - 1;
 		asm volatile("lgdt %0" :: "m"(pointer));
+	}
+
+	void GlobalDescriptorTable::Init() {
+		SetEntry(0, 0x00000000, 0x00000000, 0x00); // null
+		SetEntry(1, 0x00000000, 0xFFFFFFFF, 0x9A); // kernel code
+		SetEntry(2, 0x00000000, 0xFFFFFFFF, 0x92); // kernel data
+		SetEntry(3, 0x00000000, 0xFFFFFFFF, 0xFA); // user code
+		SetEntry(4, 0x00000000, 0xFFFFFFFF, 0xF2); // user data
+		
+		Load();
 	}
 }
